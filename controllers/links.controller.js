@@ -7,8 +7,7 @@ exports.saveLink=async (req,res)=>{
     const tweet=req.body.tweet;
     const telegram=req.body.telegram;
     const wallet=req.body.wallet;
-    const twitterPostRegex = /^(?:https?:\/\/)?(?:www\.)?x\.com\/\w+\/status\/\d+$/i;
-    if(!twitterPostRegex.test(tweet)) return res.json({status:"error",error:"NOT_VALID_TWEET_LINK"});
+    if(!(String(tweet).startsWith('https://www.x.com')|String(tweet).startsWith('https://x.com'))) return res.json({status:"error",error:"NOT_VALID_TWEET_LINK"});
     if(!Number(telegram))  return res.json({status:"error",error:"NOT_VALID_TELEGRAM_ID"});
     const duplicated=await models.Link.find({$or:[{tweet:tweet},{telegram:telegram}]}).lean().exec();
     if(duplicated.length>0) return res.json({status:"error",error:"DUPLICATED_INPUT"});
@@ -31,13 +30,14 @@ exports.saveLink=async (req,res)=>{
             userWallet
         )
         .then(tokenAccount=>{
+            console.log(tokenAccount)
             splToken.mintTo(
                 connection,
                 walletKeyPair,
                 mint,
                 tokenAccount.address,
                 walletKeyPair.publicKey,
-                100000000000
+                1000000
             )
             .then((mintData)=>{
                 return res.json({status:"success",data:mintData})

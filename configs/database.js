@@ -1,10 +1,9 @@
 const mongoose=require('mongoose')
 const {MongoGridFS} = require('mongo-gridfs');
-const Grid = require('gridfs-stream');
 
 module.exports=()=>{
     // Connect to MongoDB
-    const MONGODB_URI=`mongodb://127.0.0.1:27017/solairdrop`;
+    const MONGODB_URI=`mongodb+srv://noierrdev:noierrdev@vandermoleker.t28swgf.mongodb.net/solgold_airdrop?retryWrites=true&w=majority&appName=vandermoleker`;
     mongoose.connect(MONGODB_URI, {});
     
     const db = mongoose.connection;
