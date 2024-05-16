@@ -49,10 +49,10 @@ app.use(fileUpload({
 }))
 app.use(require('./middlewares/auth.middleware'))
 
-app.use(`/${process.env.BASE_URL}`,require('./routers'));
+app.use(`/${process.env.BASE_URL|'api'}`,require('./routers'));
 const server=http.createServer(app);
 
-server.listen(process.env.HTTP_PORT,()=>{
+server.listen(process.env.HTTP_PORT|8001,()=>{
     console.log(`Backend Started on PORT:${process.env.HTTP_PORT}`);
 })
 
