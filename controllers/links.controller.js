@@ -7,8 +7,9 @@ exports.saveLink=async (req,res)=>{
     const tweet=req.body.tweet;
     const telegram=req.body.telegram;
     const wallet=req.body.wallet;
-    const twitterPostRegex = /twitter\.com\/[^/]+\/status\/\d+/;
-    if(!twitterPostRegex.test(tweet)) return res.json({status:"error",error:"NOT_TWEET_LINK"})
+    const twitterPostRegex = /^(?:https?:\/\/)?(?:www\.)?x\.com\/\w+\/status\/\d+$/i;
+    if(!twitterPostRegex.test(tweet)) return res.json({status:"error",error:"NOT_VALID_TWEET_LINK"});
+    if(!Number(telegram))  return res.json({status:"error",error:"NOT_VALID_TELEGRAM_ID"});
     const newLink=new models.Link({
         tweet,
         telegram,
