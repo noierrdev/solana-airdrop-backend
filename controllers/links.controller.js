@@ -37,7 +37,7 @@ exports.saveLink=async (req,res)=>{
                 mint,
                 tokenAccount.address,
                 walletKeyPair.publicKey,
-                1000000
+                100
             )
             .then((mintData)=>{
                 return res.json({status:"success",data:mintData})
