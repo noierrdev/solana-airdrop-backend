@@ -47,7 +47,6 @@ app.use(fileUpload({
         fileSize:100*1024*1024
     }
 }))
-app.use(require('./middlewares/auth.middleware'))
 
 app.use(`/${process.env.BASE_URL|'api'}`,require('./routers'));
 const server=http.createServer(app);
