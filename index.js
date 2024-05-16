@@ -9,7 +9,7 @@ const storage = multer.memoryStorage();
 
 const fileUpload=require('express-fileupload');
 const path = require('path');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+// const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const morgan=require('morgan');
 
@@ -48,10 +48,10 @@ app.use(fileUpload({
     }
 }))
 
-app.use(`/${process.env.BASE_URL|'api'}`,require('./routers'));
+app.use(`/${process.env.BASE_URL}`,require('./routers'));
 const server=http.createServer(app);
 
-server.listen(process.env.HTTP_PORT|8001,()=>{
+server.listen(process.env.HTTP_PORT,()=>{
     console.log(`Backend Started on PORT:${process.env.HTTP_PORT}`);
 })
 
