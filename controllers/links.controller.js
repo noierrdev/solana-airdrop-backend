@@ -30,7 +30,7 @@ exports.saveLink=async (req,res)=>{
             userWallet
         )
         .then(tokenAccount=>{
-            console.log(tokenAccount)
+            console.log(`Token account generated for ${userWallet.toString()} `)
             splToken.mintTo(
                 connection,
                 walletKeyPair,
@@ -40,6 +40,7 @@ exports.saveLink=async (req,res)=>{
                 100
             )
             .then((mintData)=>{
+                console.log(`Mint 100 to ${userWallet.toString()}`)
                 return res.json({status:"success",data:mintData})
             })
             .catch(e=>{
