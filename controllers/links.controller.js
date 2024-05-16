@@ -10,6 +10,8 @@ exports.saveLink=async (req,res)=>{
     const twitterPostRegex = /^(?:https?:\/\/)?(?:www\.)?x\.com\/\w+\/status\/\d+$/i;
     if(!twitterPostRegex.test(tweet)) return res.json({status:"error",error:"NOT_VALID_TWEET_LINK"});
     if(!Number(telegram))  return res.json({status:"error",error:"NOT_VALID_TELEGRAM_ID"});
+    const duplicated=await models.Link.find({$or:[{tweet:tweet},{telegram:telegram}]}).lean().exec();
+    if(duplicated.length>0) return res.json({status:"error",error:"DUPLICATED_INPUT"});
     const newLink=new models.Link({
         tweet,
         telegram,
