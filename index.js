@@ -26,14 +26,14 @@ const corsOptions = {
   
 app.use(cors());
 app.use(morgan('combined'));
-const apiProxy = createProxyMiddleware('/api/maps/api', {
-    target: 'https://maps.googleapis.com',
-    changeOrigin: true,
-    pathRewrite: {
-        '^/api': '',  // Removes the '/api' prefix from the request path
-    },
-});
-app.use(apiProxy);
+// const apiProxy = createProxyMiddleware('/api/maps/api', {
+//     target: 'https://maps.googleapis.com',
+//     changeOrigin: true,
+//     pathRewrite: {
+//         '^/api': '',  // Removes the '/api' prefix from the request path
+//     },
+// });
+// app.use(apiProxy);
 // Middleware to parse JSON data
 app.use(bodyParser.json());
 
