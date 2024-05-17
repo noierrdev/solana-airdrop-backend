@@ -2,17 +2,17 @@ const mongoose=require('mongoose')
 
 const schema=mongoose.Schema;
 
-const TweetLinkSchema=new schema({
+const ReferralLinkSchema=new schema({
     link:{
         type:String
     },
-    ip:{
+    wallet:{
         type:String
     }
 },{
     timestamps:true
 })
 
-const TweetLink=mongoose.model("TweetLink",TweetLinkSchema);
+const ReferralLink=mongoose.model("ReferralLink",ReferralLinkSchema);
 
-module.exports=TweetLink;
+module.exports=ReferralLink;
