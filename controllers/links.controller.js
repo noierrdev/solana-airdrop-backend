@@ -2,8 +2,8 @@ const models=require("../models")
 const web3 =  require('@solana/web3.js');
 const splToken = require('@solana/spl-token');
 const TelegramBot = require('node-telegram-bot-api');
-
-const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {polling: true});
+const axios=require('axios')
+// const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN, {polling: true});
 
 exports.saveLink=async (req,res)=>{
     
@@ -88,5 +88,19 @@ exports.saveLink=async (req,res)=>{
     })
     .catch(e=>{
         console.log(e)
+    })
+}
+
+exports.captcha=(req,res)=>{
+    return res.json({status:"success",data:{
+        site_key:process.env.RECAPTCHA_SITE_KEY,
+        secret_key:process.env.RECAPTCHA_SITE_SECRET
+    }})
+}
+exports.verify=(req,res)=>{
+    const captcha_value=req.body.captcha;
+    axios.get(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SITE_SECRET}&response=${captcha_value}`)
+    .then(response=>{
+        return res.json(response.data)
     })
 }
